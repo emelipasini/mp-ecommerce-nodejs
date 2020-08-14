@@ -17,5 +17,17 @@
             </div>
         </div>
     </div>
-    {{query.id}}
+    {{#if query}}
+        <div>
+            <h2>Su compra se ha realizado con éxito!</h2>
+            <p>Método de pago: {{ query.payment_type }}</p>
+            <p>Referencia externa: {{ query.external_reference }}</p>
+            <p>ID del pago: {{ query.collection_id }}</p>
+        </div>
+    {{/if}}
+    {{#if purchase}}
+        <div>
+            <h2>{{purchase}}</h2>
+        </div>
+    {{/if}}
 </div>

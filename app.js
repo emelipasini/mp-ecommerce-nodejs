@@ -2,7 +2,10 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 let mercadopago = require("mercadopago");
 mercadopago.configure(
-    {access_token: "APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398"}
+    {
+        access_token: "APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398",
+        integrator_id: "dev_24c65fb163bf11ea96500242ac130004",
+    }
 );
 
 var app = express();
@@ -21,6 +24,12 @@ app.get('/detail', function (req, res) {
 
 app.get("/success", function (req, res) {
     return res.render("purchase", {query: req.query});
+});
+app.get("/pending", function (req, res) {
+    return res.render("purchase", {purchase: "Su compra está pendiente."});
+});
+app.get("/failure", function (req, res) {
+    return res.render("purchase", {purchase: "La compra no se ha podido completar."});
 });
 
 app.post("/notifications", function (req, res) {
@@ -75,7 +84,6 @@ app.post("/checkout", function (req, res) {
     // res.send(preference);
     mercadopago.preferences.create(preference)
     .then(data => {
-        res.send(data);
         return res.redirect(data.response.init_point);
     }).catch(err => console.log(err));
 });
