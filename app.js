@@ -81,8 +81,8 @@ app.post("/checkout", function (req, res) {
         },
         back_urls: {
             success: "https://emelipasini-mp-commerce-nodejs.herokuapp.com/success",
-            pending: "https://emelipasini-mp-commerce-nodejs.herokuapp.com/success",
-            failure: "https://emelipasini-mp-commerce-nodejs.herokuapp.com/success"
+            pending: "https://emelipasini-mp-commerce-nodejs.herokuapp.com/pending",
+            failure: "https://emelipasini-mp-commerce-nodejs.herokuapp.com/failure"
         },
         notification_url: "https://emelipasini-mp-commerce-nodejs.herokuapp.com/notifications",
         auto_return: "approved",
