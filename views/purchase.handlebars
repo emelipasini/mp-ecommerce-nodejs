@@ -17,12 +17,23 @@
             </div>
         </div>
     </div>
+    collection_id=8235892416
+    &collection_status=approved
+    &external_reference=emelipasini@gmail.com
+    &payment_type=credit_card
+    &merchant_order_id=1681032484
+    &preference_id=469485398-56a0ed84-002b-4935-832a-0157ed9a7909
+    &site_id=MLA
+    &processing_mode=aggregator
+    &merchant_account_id=null
     {{#if query}}
         <div>
             <h2>Su compra se ha realizado con éxito!</h2>
-            <p>Método de pago: {{ query.payment_type }}</p>
-            <p>Referencia externa: {{ query.external_reference }}</p>
             <p>ID del pago: {{ query.collection_id }}</p>
+            <p>Referencia externa: {{ query.external_reference }}</p>
+            <p>Método de pago: {{ query.payment_type }}</p>
+            <p>ID de la orden: {{ query.merchant_order_id }}</p>
+            <p>ID de la preferencia: {{ query.preference_id }}</p>
         </div>
     {{/if}}
     {{#if purchase}}
