@@ -34,8 +34,11 @@ app.get("/failure", function (req, res) {
 });
 
 app.post("/notifications", function (req, res) {
-    console.log(req.query);
-    fs.writeFileSync("webhook.json", JSON.stringify(req.query));
+    let notification = {
+        query: req.query,
+        body: req.body
+    }
+    fs.writeFileSync("webhook.json", JSON.stringify(notification));
     return res.send(200);
 });
 app.get("/notifications", function (req, res) {
@@ -90,7 +93,7 @@ app.post("/checkout", function (req, res) {
     }
     mercadopago.preferences.create(preference)
     .then(data => {
-        console.log(data);
+        fs.writeFileSync("preference.json", JSON.stringify(data.response.id))
         return res.redirect(data.response.init_point);
     }).catch(err => console.log(err));
 });
