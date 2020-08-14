@@ -32,6 +32,14 @@ app.get("/pending", function (req, res) {
 app.get("/failure", function (req, res) {
     return res.render("purchase", {purchase: "La compra no se ha podido completar."});
 });
+app.get("/notifications", function (req, res) {
+    let webhook = fs.readFileSync("webhook.json");
+    return res.send(webhook);
+});
+app.get("/preference", function (req, res) {
+    let preference = fs.readFileSync("preference.json");
+    return res.send(preference);
+});
 
 app.post("/notifications", function (req, res) {
     let notification = {
@@ -41,10 +49,7 @@ app.post("/notifications", function (req, res) {
     fs.writeFileSync("webhook.json", JSON.stringify(notification));
     return res.send(200);
 });
-app.get("/notifications", function (req, res) {
-    let webhook = fs.readFileSync("webhook.json");
-    return res.send(webhook);
-});
+
 
 app.post("/checkout", function (req, res) {
     let preference = {
