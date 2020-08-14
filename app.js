@@ -1,5 +1,6 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
+const fs = require("fs");
 let mercadopago = require("mercadopago");
 mercadopago.configure(
     {
@@ -33,8 +34,14 @@ app.get("/failure", function (req, res) {
 });
 
 app.post("/notifications", function (req, res) {
-    return res.send(req.body);
-})
+    console.log(req.query);
+    fs.writeFileSync("webhook.json", JSON.stringify(req.query));
+    return res.send(200);
+});
+app.get("/notifications", function (req, res) {
+    let webhook = fs.readFileSync("webhook.json");
+    return res.send(webhook);
+});
 
 app.post("/checkout", function (req, res) {
     let preference = {
@@ -81,9 +88,9 @@ app.post("/checkout", function (req, res) {
         auto_return: "approved",
         external_reference: "emelipasini@gmail.com"
     }
-    // res.send(preference);
     mercadopago.preferences.create(preference)
     .then(data => {
+        console.log(data);
         return res.redirect(data.response.init_point);
     }).catch(err => console.log(err));
 });
