@@ -32,13 +32,14 @@ app.get("/pending", function (req, res) {
 app.get("/failure", function (req, res) {
     return res.render("purchase", {purchase: "La compra no se ha podido completar."});
 });
+
 app.get("/notifications", function (req, res) {
     let webhook = fs.readFileSync("webhook.json");
     return res.send(webhook);
 });
 
 app.post("/notifications", function (req, res) {
-    fs.writeFileSync("webhook.json", JSON.stringify(req.query));
+    fs.writeFileSync("webhook.json", JSON.stringify(req));
     return res.send(200);
 });
 
@@ -50,7 +51,7 @@ app.post("/checkout", function (req, res) {
                 id: "1234",
                 title: req.body.title,
                 description: "Dispositivo móvil de Tienda e-commerce",
-                picture_url: req.body.img,
+                picture_url: "https://www.euronics.ee/UserFiles/Products/Images/183746-samsung-galaxy-s9-blue-1.png",
                 quantity: 1,
                 unit_price: parseInt(req.body.price)
             }
