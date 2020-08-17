@@ -39,7 +39,7 @@ app.get("/notifications", function (req, res) {
 });
 
 app.post("/notifications", function (req, res) {
-    fs.writeFileSync("webhook.json", JSON.stringify(req));
+    fs.writeFileSync("webhook.json", JSON.stringify(req.query));
     return res.send(200);
 });
 
